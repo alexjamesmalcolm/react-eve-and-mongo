@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  nginx:
+    build: frontend
+    restart: unless-stopped
+    ports:
+      - 80:80
+  eve:
+    build: backend
+    restart: unless-stopped
+    environment:
+      - MONGO_URI=mongodb://mongo/db
+    ports:
+      - 5000:5000
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - ./mongo:/data/db

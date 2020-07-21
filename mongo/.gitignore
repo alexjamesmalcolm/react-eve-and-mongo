@@ -1,0 +1,7 @@
+# The mongo directory is resevered for mongo related database files
+
+# Ignoring everything
+*
+
+# Except this file
+!.gitignore
