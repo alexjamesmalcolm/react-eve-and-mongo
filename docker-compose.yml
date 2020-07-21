@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  nginx:
+  react:
     build: frontend
     restart: unless-stopped
     ports:

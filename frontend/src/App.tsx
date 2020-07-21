@@ -1,57 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { LazyExoticComponent, Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+interface route {
+  href: string;
+  Component: LazyExoticComponent<any>;
+  name: string;
+}
+
+const routes: route[] = [
+  {
+    href: "/",
+    name: "Home",
+    Component: React.lazy(() => import("./pages/Home")),
+  },
+  {
+    href: "/about",
+    name: "About",
+    Component: React.lazy(() => import("./pages/About")),
+  },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Router>
+      {routes.map(({ href, name }) => (
+        <Link to={href}>{name}</Link>
+      ))}
+      <Switch>
+        {routes.map(({ Component, href }) => (
+          <Route path={href} exact>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Component />
+            </Suspense>
+          </Route>
+        ))}
+      </Switch>
+    </Router>
   );
 }
 
