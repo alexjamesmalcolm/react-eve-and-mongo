@@ -20,23 +20,21 @@ const routes: route[] = [
   },
 ];
 
-function App() {
-  return (
-    <Router>
-      {routes.map(({ href, name }) => (
-        <Link to={href}>{name}</Link>
+const App = () => (
+  <Router>
+    {routes.map(({ href, name }) => (
+      <Link to={href}>{name}</Link>
+    ))}
+    <Switch>
+      {routes.map(({ Component, href }) => (
+        <Route path={href} exact>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Component />
+          </Suspense>
+        </Route>
       ))}
-      <Switch>
-        {routes.map(({ Component, href }) => (
-          <Route path={href} exact>
-            <Suspense fallback={<p>Loading...</p>}>
-              <Component />
-            </Suspense>
-          </Route>
-        ))}
-      </Switch>
-    </Router>
-  );
-}
+    </Switch>
+  </Router>
+);
 
 export default App;
