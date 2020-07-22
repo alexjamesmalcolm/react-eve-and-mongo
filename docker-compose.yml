@@ -11,8 +11,6 @@ services:
     restart: unless-stopped
     environment:
       - MONGO_URI=mongodb://mongo/db
-    ports:
-      - 5000:5000
   mongo:
     image: mongo
     restart: unless-stopped
