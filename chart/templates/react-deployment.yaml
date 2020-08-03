@@ -1,12 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.21.0 ()
-  creationTimestamp: null
-  labels:
-    io.kompose.service: react
   name: react
 spec:
   replicas: 1
@@ -15,13 +9,6 @@ spec:
       io.kompose.service: react
   strategy: {}
   template:
-    metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.21.0 ()
-      creationTimestamp: null
-      labels:
-        io.kompose.service: react
     spec:
       containers:
       - image: react
